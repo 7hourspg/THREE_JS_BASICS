@@ -1,86 +1,98 @@
+import {
+  CameraControls,
+  Environment,
+  OrbitControls,
+  PerspectiveCamera
+} from '@react-three/drei'
+import { Canvas, useFrame } from '@react-three/fiber'
 import React from 'react'
+import { useRef } from 'react'
 import './App.css'
 
-import { Canvas, useFrame } from '@react-three/fiber'
-
-const Box = () => {
-  const ref = React.useRef()
-
-  useFrame((state, delta) => {
-    // ref.current.rotation.x += delta
-    // ref.current.rotation.y += delta
-    // ref.current.rotation.z += Math.sin(state.clock.getElapsedTime())
-    state.camera.position.z = 5
-  })
-
-  return (
-    <>
-      <group ref={ref}>
-        <mesh position={[2, 2, 0]} ref={ref}>
-          <boxGeometry attach='geometry' args={[1, 1, 1]} />
-          <meshStandardMaterial color={'orange'} />
-        </mesh>
-
-        <mesh position={[2, -2, 0]} ref={ref}>
-          <boxGeometry attach='geometry' args={[1, 1, 1]} />
-          <meshStandardMaterial color={'green'} />
-        </mesh>
-
-        <mesh position={[-2, 2, 0]} ref={ref}>
-          <boxGeometry attach='geometry' args={[1, 1, 1]} />
-          <meshStandardMaterial color={'yellow'} />
-        </mesh>
-
-        <mesh position={[-2, -2, 0]} ref={ref}>
-          <boxGeometry attach='geometry' args={[1, 1, 1]} />
-          <meshStandardMaterial color={'red'} />
-        </mesh>
-      </group>
-    </>
-  )
-}
-
 const Sphere = () => {
+  const ref = useRef()
+
+  const isMobile = window.innerWidth < 768
+  console.log(isMobile)
+
+  useFrame((state, delta) => {
+    ref.current.position.x = Math.sin(state.clock.getElapsedTime()) * 2
+    ref.current.position.y = Math.cos(state.clock.getElapsedTime()) * 2
+  })
+
   return (
     <>
-      <mesh position={[0, 0, 0]}>
+      <mesh castShadow ref={ref}>
         <sphereGeometry attach='geometry' args={[1, 50, 50]} />
-        <meshStandardMaterial color={'green'} />
+        <meshStandardMaterial color='#fff' />
       </mesh>
     </>
   )
 }
 
-const Donut = () => {
-  const ref = React.useRef()
-  useFrame((state, delta) => {
-    ref.current.rotation.x += delta
-    ref.current.rotation.y += delta
-    ref.current.rotation.z += Math.sin(state.clock.getElapsedTime())
-  })
+const Plane = () => {
   return (
-    <>
-      <mesh position={[0, 0, 0]} ref={ref}>
-        <torusGeometry attach='geometry' args={[1, 0.5, 50, 50]} />
-        <meshStandardMaterial color={'green'} wireframe={true} />
-      </mesh>
-    </>
+    <mesh position={[0, 0, -1]} receiveShadow>
+      <planeGeometry attach={'geometry'} args={[17, 17]} />
+      <meshStandardMaterial color='#87ceeb' />
+    </mesh>
   )
 }
 
 function App () {
+  const cameraControlRef = useRef()
+  const DEG45 = Math.PI / 4
   return (
-    <div className='App_Container'>
-      <h1 style={{ color: 'black' }}>React App</h1>
-      <Canvas>
-        <directionalLight position={[0, 0, 2]} />
+    <>
+      <Canvas id='canvas' style={{ height: '100vh', width: '100vw' }} shadows>
+        <PerspectiveCamera makeDefault position={[0, -10, 0]} />
+        <Sphere />
+
+        <Plane />
+
+        {/* <directionalLight position={[-4, -1, 2]} castShadow /> */}
+        <spotLight
+          args={['#ffff', 10, 0, Math.PI / 4.5, 0.5, 0]}
+          position={[-4, -1, 1]}
+          castShadow
+        />
         <ambientLight intensity={0.5} />
-        <pointLight position={[1, 1, 1]} />
-        {/* <Box /> */}
-        {/* <Sphere /> */}
-        <Donut />
+        <OrbitControls
+          maxPolarAngle={Math.PI / 2}
+          minPolarAngle={Math.PI / 2}
+        />
+        <CameraControls
+          ref={cameraControlRef}
+          maxPolarAngle={Math.PI / 2}
+          minPolarAngle={Math.PI / 2}
+        />
+
+        <Environment background>
+          <mesh>
+            <sphereGeometry args={[-5, -5, 0]} />
+            <meshBasicMaterial color='#87ceeb' />
+          </mesh>
+        </Environment>
       </Canvas>
-    </div>
+      <div style={{ position: 'absolute', top: '0' }}>
+        <button
+          type='button'
+          onClick={() => {
+            cameraControlRef.current?.rotate(DEG45, DEG45, true)
+          }}
+        >
+          rotate theta 45deg
+        </button>
+        <button
+          type='button'
+          onClick={() => {
+            cameraControlRef.current?.reset(true)
+          }}
+        >
+          reset
+        </button>
+      </div>
+    </>
   )
 }
 
