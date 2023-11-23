@@ -7,7 +7,7 @@ Source: https://sketchfab.com/3d-models/low-poly-people-free-sample-pack-f2616c6
 Title: Low Poly People Free Sample Pack
 */
 
-import React, { useRef } from 'react'
+import React, { useRef,useEffect } from 'react'
 import { useGLTF, useAnimations } from '@react-three/drei'
 import model from "./models/peoples.glb";
 
@@ -15,7 +15,13 @@ import model from "./models/peoples.glb";
 const Peoples = (props) => {
   const group = useRef()
   const { nodes, materials, animations } = useGLTF(model)
-  const { actions } = useAnimations(animations, group)
+  const { actions,names } = useAnimations(animations, group)
+
+  useEffect(() => {
+    actions[names[0]].play();
+ }, [actions]);
+
+
   return (
     <group ref={group} {...props} dispose={null}>
       <group name="Sketchfab_Scene">
