@@ -7,139 +7,367 @@ Source: https://sketchfab.com/3d-models/low-poly-people-free-sample-pack-f2616c6
 Title: Low Poly People Free Sample Pack
 */
 
-import React, { useRef,useEffect } from 'react'
-import { useGLTF, useAnimations } from '@react-three/drei'
+import React, {useRef, useEffect, useState} from "react";
+import {useGLTF, useAnimations, Html} from "@react-three/drei";
 import model from "./models/peoples.glb";
 
-
 const Peoples = (props) => {
-  const group = useRef()
-  const { nodes, materials, animations } = useGLTF(model)
-  const { actions,names } = useAnimations(animations, group)
+   const [isToggle, setToggle] = useState(false);
 
-  useEffect(() => {
-    actions[names[0]].play();
- }, [actions]);
+   const group = useRef();
+   const {nodes, materials, animations} = useGLTF(model);
+   const {actions, names} = useAnimations(animations, group);
 
+   useEffect(() => {
+      actions[names[0]].play();
 
-  return (
-    <group ref={group} {...props} dispose={null}>
-      <group name="Sketchfab_Scene">
-        <group name="Sketchfab_model" 
-        
-        rotation={[-Math.PI /15, 0, 0]}
+      return () => {
+         actions[names[0]]?.stop();
+      };
+   }, [actions]);
 
-        
-        >
-          <group name="492f78e5a36d438bb073b02769b22013fbx" rotation={[Math.PI / 2, 0, 0]} scale={0.01}>
-            <group name="Object_2">
-              <group name="RootNode">
-                <group name="casual_Female_G" position={[0, 5, 0]} rotation={[-Math.PI / 2, 0, 0]} />
-                <group name="rig_CharRoot" position={[-218.334, 0, 30.841]} rotation={[-Math.PI / 2, 0, 0.52]}>
-                  <group name="Object_6">
-                    <primitive object={nodes._rootJoint} />
-                    <group name="Object_8" position={[0, 5, 0]} rotation={[-Math.PI / 2, 0, 0]} />
-                    <skinnedMesh
-                    castShadow name="Object_9" geometry={nodes.Object_9.geometry} material={materials.peopleColorsFam} skeleton={nodes.Object_9.skeleton} />
+   const toggleFn = () => {
+      setToggle(!isToggle);
+      if (isToggle) {
+         actions[names[0]].play();
+      } else {
+         actions[names[0]].stop();
+      }
+   };
+
+   return (
+      <>
+         <Html>
+            <button
+               onClick={() => toggleFn()}
+               style={{
+                  color: "white",
+                  backgroundColor: "black",
+                  padding: "10px",
+
+                  border: "none",
+                  borderRadius: "5px",
+                  cursor: "pointer",
+               }}
+            >
+               {!isToggle ? "Stop" : "Play"}
+            </button>
+         </Html>
+         <group ref={group} {...props} dispose={null}>
+            <group name="Sketchfab_Scene">
+               <group name="Sketchfab_model" rotation={[-Math.PI / 15, 0, 0]}>
+                  <group
+                     name="492f78e5a36d438bb073b02769b22013fbx"
+                     rotation={[Math.PI / 2, 0, 0]}
+                     scale={0.01}
+                  >
+                     <group name="Object_2">
+                        <group name="RootNode">
+                           <group
+                              name="casual_Female_G"
+                              position={[0, 5, 0]}
+                              rotation={[-Math.PI / 2, 0, 0]}
+                           />
+                           <group
+                              name="rig_CharRoot"
+                              position={[-218.334, 0, 30.841]}
+                              rotation={[-Math.PI / 2, 0, 0.52]}
+                           >
+                              <group name="Object_6">
+                                 <primitive object={nodes._rootJoint} />
+                                 <group
+                                    name="Object_8"
+                                    position={[0, 5, 0]}
+                                    rotation={[-Math.PI / 2, 0, 0]}
+                                 />
+                                 <skinnedMesh
+                                    castShadow
+                                    name="Object_9"
+                                    geometry={nodes.Object_9.geometry}
+                                    material={materials.peopleColorsFam}
+                                    skeleton={nodes.Object_9.skeleton}
+                                 />
+                              </group>
+                           </group>
+                           <group
+                              name="casual_Female_K_"
+                              position={[0, 5, 0]}
+                              rotation={[-Math.PI / 2, 0, 0]}
+                           />
+                           <group
+                              name="rig_CharRoot001"
+                              position={[-78.338, -1.27, -23.678]}
+                              rotation={[-Math.PI / 2, 0, 0.322]}
+                           >
+                              <group name="Object_50">
+                                 <primitive object={nodes._rootJoint_1} />
+                                 <group
+                                    name="Object_52"
+                                    position={[0, 5, 0]}
+                                    rotation={[-Math.PI / 2, 0, 0]}
+                                 />
+                                 <group
+                                    name="Object_93"
+                                    position={[0, 166.465, 5.368]}
+                                    rotation={[-Math.PI / 2, 0, 0]}
+                                 />
+                                 <skinnedMesh
+                                    castShadow
+                                    name="Object_53"
+                                    geometry={nodes.Object_53.geometry}
+                                    material={materials.peopleColorsFam}
+                                    skeleton={nodes.Object_53.skeleton}
+                                 />
+                                 <skinnedMesh
+                                    castShadow
+                                    name="Object_94"
+                                    geometry={nodes.Object_94.geometry}
+                                    material={materials.peopleColorsFam}
+                                    skeleton={nodes.Object_94.skeleton}
+                                 />
+                              </group>
+                           </group>
+                           <group
+                              name="acc_hair_punkin_"
+                              position={[0, 166.465, 5.368]}
+                              rotation={[-Math.PI / 2, 0, 0]}
+                           />
+                           <group
+                              name="casual_Male_G"
+                              rotation={[-Math.PI / 2, 0, 0]}
+                           />
+                           <group
+                              name="rig_CharRoot002"
+                              position={[105.27, 0, -21.835]}
+                              rotation={[-Math.PI / 2, 0, 0]}
+                           >
+                              <group name="Object_98">
+                                 <primitive object={nodes._rootJoint_2} />
+                                 <group
+                                    name="Object_100"
+                                    rotation={[-Math.PI / 2, 0, 0]}
+                                 />
+                                 <skinnedMesh
+                                    castShadow
+                                    name="Object_101"
+                                    geometry={nodes.Object_101.geometry}
+                                    material={materials.peopleColorsFam}
+                                    skeleton={nodes.Object_101.skeleton}
+                                 />
+                              </group>
+                           </group>
+                           <group
+                              name="casual_Male_K"
+                              rotation={[-Math.PI / 2, 0, 0]}
+                           />
+                           <group
+                              name="rig_CharRoot003"
+                              position={[-181.689, -7.159, -25.256]}
+                              rotation={[-Math.PI / 2, 0, 0.292]}
+                           >
+                              <group name="Object_142">
+                                 <primitive object={nodes._rootJoint_3} />
+                                 <group
+                                    name="Object_144"
+                                    rotation={[-Math.PI / 2, 0, 0]}
+                                 />
+                                 <group
+                                    name="Object_185"
+                                    position={[0, 155.207, 8.204]}
+                                    rotation={[-Math.PI / 2, 0, 0]}
+                                 />
+                                 <skinnedMesh
+                                    castShadow
+                                    name="Object_145"
+                                    geometry={nodes.Object_145.geometry}
+                                    material={materials.peopleColors}
+                                    skeleton={nodes.Object_145.skeleton}
+                                 />
+                                 <skinnedMesh
+                                    castShadow
+                                    name="Object_186"
+                                    geometry={nodes.Object_186.geometry}
+                                    material={materials.peopleColors}
+                                    skeleton={nodes.Object_186.skeleton}
+                                 />
+                              </group>
+                           </group>
+                           <group
+                              name="acc_intelect_glasses"
+                              position={[0, 155.207, 8.204]}
+                              rotation={[-Math.PI / 2, 0, 0]}
+                           />
+                           <group
+                              name="Doctor_Male_B"
+                              rotation={[-Math.PI / 2, 0, 0]}
+                           />
+                           <group
+                              name="rig_CharRoot004"
+                              position={[-118.157, 0, 93.47]}
+                              rotation={[-Math.PI / 2, 0, 1.348]}
+                           >
+                              <group name="Object_190">
+                                 <primitive object={nodes._rootJoint_4} />
+                                 <group
+                                    name="Object_192"
+                                    rotation={[-Math.PI / 2, 0, 0]}
+                                 />
+                                 <group
+                                    name="Object_238"
+                                    rotation={[-Math.PI / 2, 0, 0]}
+                                 />
+                                 <skinnedMesh
+                                    castShadow
+                                    name="Object_193"
+                                    geometry={nodes.Object_193.geometry}
+                                    material={materials.peopleColors}
+                                    skeleton={nodes.Object_193.skeleton}
+                                 />
+                                 <skinnedMesh
+                                    castShadow
+                                    name="Object_239"
+                                    geometry={nodes.Object_239.geometry}
+                                    material={materials.peopleColors}
+                                    skeleton={nodes.Object_239.skeleton}
+                                 />
+                              </group>
+                           </group>
+                           <group
+                              name="stetho"
+                              rotation={[-Math.PI / 2, 0, 0]}
+                           />
+                           <group
+                              name="elder_Female_A"
+                              position={[0, 5, 0]}
+                              rotation={[-Math.PI / 2, 0, 0]}
+                           />
+                           <group
+                              name="rig_CharRoot005"
+                              position={[207.94, -0.585, 36.974]}
+                              rotation={[-Math.PI / 2, 0, -0.289]}
+                           >
+                              <group name="Object_243">
+                                 <primitive object={nodes._rootJoint_5} />
+                                 <group
+                                    name="Object_245"
+                                    position={[0, 5, 0]}
+                                    rotation={[-Math.PI / 2, 0, 0]}
+                                 />
+                                 <group
+                                    name="Object_287"
+                                    position={[0, 150.035, 3.541]}
+                                    rotation={[-Math.PI / 2, 0, 0]}
+                                 />
+                                 <group
+                                    name="Object_289"
+                                    position={[0, 156.515, 1.03]}
+                                    rotation={[-Math.PI / 2, 0, 0]}
+                                 />
+                                 <skinnedMesh
+                                    castShadow
+                                    name="Object_246"
+                                    geometry={nodes.Object_246.geometry}
+                                    material={materials.peopleColors}
+                                    skeleton={nodes.Object_246.skeleton}
+                                 />
+                                 <skinnedMesh
+                                    castShadow
+                                    name="Object_288"
+                                    geometry={nodes.Object_288.geometry}
+                                    material={materials.peopleColors}
+                                    skeleton={nodes.Object_288.skeleton}
+                                 />
+                                 <skinnedMesh
+                                    castShadow
+                                    name="Object_290"
+                                    geometry={nodes.Object_290.geometry}
+                                    material={materials.peopleColors}
+                                    skeleton={nodes.Object_290.skeleton}
+                                 />
+                              </group>
+                           </group>
+                           <group
+                              name="acc_intelect_glasses001"
+                              position={[0, 150.035, 3.541]}
+                              rotation={[-Math.PI / 2, 0, 0]}
+                           />
+                           <group
+                              name="hair_oldLady"
+                              position={[0, 156.515, 1.03]}
+                              rotation={[-Math.PI / 2, 0, 0]}
+                           />
+                           <group
+                              name="little_boy_B"
+                              rotation={[-Math.PI / 2, 0, 0]}
+                           />
+                           <group
+                              name="rig_CharRoot006"
+                              position={[-1.245, 0, 74.505]}
+                              rotation={[-Math.PI / 2, 0, 0]}
+                           >
+                              <group name="Object_295">
+                                 <primitive object={nodes._rootJoint_6} />
+                                 <group
+                                    name="Object_297"
+                                    rotation={[-Math.PI / 2, 0, 0]}
+                                 />
+                                 <group
+                                    name="Object_338"
+                                    rotation={[-Math.PI / 2, 0, 0]}
+                                 />
+                                 <skinnedMesh
+                                    castShadow
+                                    name="Object_298"
+                                    geometry={nodes.Object_298.geometry}
+                                    material={materials.peopleColors}
+                                    skeleton={nodes.Object_298.skeleton}
+                                 />
+                                 <skinnedMesh
+                                    castShadow
+                                    name="Object_339"
+                                    geometry={nodes.Object_339.geometry}
+                                    material={materials.peopleColors}
+                                    skeleton={nodes.Object_339.skeleton}
+                                 />
+                              </group>
+                           </group>
+                           <group name="hair" rotation={[-Math.PI / 2, 0, 0]} />
+                           <group
+                              name="police_Female_A"
+                              position={[0, 5, 0]}
+                              rotation={[-Math.PI / 2, 0, 0]}
+                           />
+                           <group
+                              name="rig_CharRoot007"
+                              position={[125.485, 0, 103.298]}
+                              rotation={[-Math.PI / 2, 0, -1.532]}
+                           >
+                              <group name="Object_343">
+                                 <primitive object={nodes._rootJoint_7} />
+                                 <group
+                                    name="Object_345"
+                                    position={[0, 5, 0]}
+                                    rotation={[-Math.PI / 2, 0, 0]}
+                                 />
+                                 <skinnedMesh
+                                    castShadow
+                                    name="Object_346"
+                                    geometry={nodes.Object_346.geometry}
+                                    material={materials.peopleColors}
+                                    skeleton={nodes.Object_346.skeleton}
+                                 />
+                              </group>
+                           </group>
+                        </group>
+                     </group>
                   </group>
-                </group>
-                <group name="casual_Female_K_" position={[0, 5, 0]} rotation={[-Math.PI / 2, 0, 0]} />
-                <group name="rig_CharRoot001" position={[-78.338, -1.27, -23.678]} rotation={[-Math.PI / 2, 0, 0.322]}>
-                  <group name="Object_50">
-                    <primitive object={nodes._rootJoint_1} />
-                    <group name="Object_52" position={[0, 5, 0]} rotation={[-Math.PI / 2, 0, 0]} />
-                    <group name="Object_93" position={[0, 166.465, 5.368]} rotation={[-Math.PI / 2, 0, 0]} />
-                    <skinnedMesh
-                    castShadow name="Object_53" geometry={nodes.Object_53.geometry} material={materials.peopleColorsFam} skeleton={nodes.Object_53.skeleton} />
-                    <skinnedMesh
-                    castShadow name="Object_94" geometry={nodes.Object_94.geometry} material={materials.peopleColorsFam} skeleton={nodes.Object_94.skeleton} />
-                  </group>
-                </group>
-                <group name="acc_hair_punkin_" position={[0, 166.465, 5.368]} rotation={[-Math.PI / 2, 0, 0]} />
-                <group name="casual_Male_G" rotation={[-Math.PI / 2, 0, 0]} />
-                <group name="rig_CharRoot002" position={[105.27, 0, -21.835]} rotation={[-Math.PI / 2, 0, 0]}>
-                  <group name="Object_98">
-                    <primitive object={nodes._rootJoint_2} />
-                    <group name="Object_100" rotation={[-Math.PI / 2, 0, 0]} />
-                    <skinnedMesh
-                    castShadow name="Object_101" geometry={nodes.Object_101.geometry} material={materials.peopleColorsFam} skeleton={nodes.Object_101.skeleton} />
-                  </group>
-                </group>
-                <group name="casual_Male_K" rotation={[-Math.PI / 2, 0, 0]} />
-                <group name="rig_CharRoot003" position={[-181.689, -7.159, -25.256]} rotation={[-Math.PI / 2, 0, 0.292]}>
-                  <group name="Object_142">
-                    <primitive object={nodes._rootJoint_3} />
-                    <group name="Object_144" rotation={[-Math.PI / 2, 0, 0]} />
-                    <group name="Object_185" position={[0, 155.207, 8.204]} rotation={[-Math.PI / 2, 0, 0]} />
-                    <skinnedMesh
-                    castShadow name="Object_145" geometry={nodes.Object_145.geometry} material={materials.peopleColors} skeleton={nodes.Object_145.skeleton} />
-                    <skinnedMesh
-                    castShadow name="Object_186" geometry={nodes.Object_186.geometry} material={materials.peopleColors} skeleton={nodes.Object_186.skeleton} />
-                  </group>
-                </group>
-                <group name="acc_intelect_glasses" position={[0, 155.207, 8.204]} rotation={[-Math.PI / 2, 0, 0]} />
-                <group name="Doctor_Male_B" rotation={[-Math.PI / 2, 0, 0]} />
-                <group name="rig_CharRoot004" position={[-118.157, 0, 93.47]} rotation={[-Math.PI / 2, 0, 1.348]}>
-                  <group name="Object_190">
-                    <primitive object={nodes._rootJoint_4} />
-                    <group name="Object_192" rotation={[-Math.PI / 2, 0, 0]} />
-                    <group name="Object_238" rotation={[-Math.PI / 2, 0, 0]} />
-                    <skinnedMesh
-                    castShadow name="Object_193" geometry={nodes.Object_193.geometry} material={materials.peopleColors} skeleton={nodes.Object_193.skeleton} />
-                    <skinnedMesh
-                    castShadow name="Object_239" geometry={nodes.Object_239.geometry} material={materials.peopleColors} skeleton={nodes.Object_239.skeleton} />
-                  </group>
-                </group>
-                <group name="stetho" rotation={[-Math.PI / 2, 0, 0]} />
-                <group name="elder_Female_A" position={[0, 5, 0]} rotation={[-Math.PI / 2, 0, 0]} />
-                <group name="rig_CharRoot005" position={[207.94, -0.585, 36.974]} rotation={[-Math.PI / 2, 0, -0.289]}>
-                  <group name="Object_243">
-                    <primitive object={nodes._rootJoint_5} />
-                    <group name="Object_245" position={[0, 5, 0]} rotation={[-Math.PI / 2, 0, 0]} />
-                    <group name="Object_287" position={[0, 150.035, 3.541]} rotation={[-Math.PI / 2, 0, 0]} />
-                    <group name="Object_289" position={[0, 156.515, 1.03]} rotation={[-Math.PI / 2, 0, 0]} />
-                    <skinnedMesh
-                    castShadow name="Object_246" geometry={nodes.Object_246.geometry} material={materials.peopleColors} skeleton={nodes.Object_246.skeleton} />
-                    <skinnedMesh
-                    castShadow name="Object_288" geometry={nodes.Object_288.geometry} material={materials.peopleColors} skeleton={nodes.Object_288.skeleton} />
-                    <skinnedMesh
-                    castShadow name="Object_290" geometry={nodes.Object_290.geometry} material={materials.peopleColors} skeleton={nodes.Object_290.skeleton} />
-                  </group>
-                </group>
-                <group name="acc_intelect_glasses001" position={[0, 150.035, 3.541]} rotation={[-Math.PI / 2, 0, 0]} />
-                <group name="hair_oldLady" position={[0, 156.515, 1.03]} rotation={[-Math.PI / 2, 0, 0]} />
-                <group name="little_boy_B" rotation={[-Math.PI / 2, 0, 0]} />
-                <group name="rig_CharRoot006" position={[-1.245, 0, 74.505]} rotation={[-Math.PI / 2, 0, 0]}>
-                  <group name="Object_295">
-                    <primitive object={nodes._rootJoint_6} />
-                    <group name="Object_297" rotation={[-Math.PI / 2, 0, 0]} />
-                    <group name="Object_338" rotation={[-Math.PI / 2, 0, 0]} />
-                    <skinnedMesh
-                    castShadow name="Object_298" geometry={nodes.Object_298.geometry} material={materials.peopleColors} skeleton={nodes.Object_298.skeleton} />
-                    <skinnedMesh
-                    castShadow name="Object_339" geometry={nodes.Object_339.geometry} material={materials.peopleColors} skeleton={nodes.Object_339.skeleton} />
-                  </group>
-                </group>
-                <group name="hair" rotation={[-Math.PI / 2, 0, 0]} />
-                <group name="police_Female_A" position={[0, 5, 0]} rotation={[-Math.PI / 2, 0, 0]} />
-                <group name="rig_CharRoot007" position={[125.485, 0, 103.298]} rotation={[-Math.PI / 2, 0, -1.532]}>
-                  <group name="Object_343">
-                    <primitive object={nodes._rootJoint_7} />
-                    <group name="Object_345" position={[0, 5, 0]} rotation={[-Math.PI / 2, 0, 0]} />
-                    <skinnedMesh
-                    castShadow name="Object_346" geometry={nodes.Object_346.geometry} material={materials.peopleColors} skeleton={nodes.Object_346.skeleton} />
-                  </group>
-                </group>
-              </group>
+               </group>
             </group>
-          </group>
-        </group>
-      </group>
-    </group>
-  )
-}
+         </group>
+      </>
+   );
+};
 
-useGLTF.preload(model)
+useGLTF.preload(model);
 
-
-export default Peoples
+export default Peoples;

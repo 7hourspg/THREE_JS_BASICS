@@ -1,5 +1,7 @@
 import {
+  CameraControls,
   Environment,
+  Html,
   OrbitControls,
   OrthographicCamera,
   PerspectiveCamera,
@@ -42,66 +44,62 @@ const SkyBox = () => {
   )
 }
 
+
+
+
 function App () {
+
+
   return (
-    <Canvas
-      style={{ height: '100vh', width: '100vw' }}
-      shadows
-      camera={{ position: [0, -4, 0], fov: 50 }}
-    >
-      {/* <PerspectiveCamera makeDefault position={[0, -4, 2]} /> */}
+    <>
+      <Canvas
+        style={{ height: '100vh', width: '100vw' }}
+        shadows
+        camera={{ position: [0, -4, 0], fov: 50 }}
+      >
+        {/* <PerspectiveCamera makeDefault position={[0, -4, 2]} /> */}
 
-      <ambientLight intensity={0.5} />
+        <ambientLight intensity={0.5} />
+        <spotLight
+          args={['#ffff', 10, 0, Math.PI / 4.5, 0.5, 0]}
+          position={[-4, -1, 1]}
+          castShadow
+        />
 
-      <spotLight
-        args={['#ffff', 10, 0, Math.PI / 4.5, 0.5, 0]}
-        position={[-4, -1, 1]}
-        castShadow
-      />
-
-      <mesh position={[0, 0, -1]} castShadow>
         {/* Models are here */}
-
-        <Woman scale={0.5} />
-        <Peoples />
-      </mesh>
-      <Plane />
-
-      {/* <Sky
-        sunPosition={[20, 20, 20]}
-        azimuth={0.25}
-        turbidity={10}
-        rayleigh={0.5}
-        inclination={0.6}
-        distance={1000}
-      /> */}
-
-      <SkyBox />
-
-      <Stars
-        radius={100}
-        depth={50}
-        count={5000}
-        factor={4}
-        saturation={0}
-        fade={false}
-      />
-
-      <OrbitControls
-        maxAzimuthAngle={Math.PI / 4}
-        maxPolarAngle={Math.PI}
-        minAzimuthAngle={-Math.PI / 4}
-        minPolarAngle={Math.PI / 4}
-        enableZoom={false}
-      />
-
-      <Environment frames={Infinity} resolution={256} background blur={1}>
-        <mesh>
-          <sphereGeometry args={[-5, -5, 0]} />
-          <meshBasicMaterial color='black' />
+        <mesh position={[0, 0, -1]} castShadow>
+          <Woman scale={0.5} />
+          <Peoples />
         </mesh>
-      </Environment>
-    </Canvas>
+
+        <Plane />
+        <SkyBox />
+
+        <Stars
+          radius={100}
+          depth={50}
+          count={5000}
+          factor={4}
+          saturation={0}
+          fade={false}
+        />
+
+        <OrbitControls
+          maxAzimuthAngle={Math.PI / 4}
+          maxPolarAngle={Math.PI}
+          minAzimuthAngle={-Math.PI / 4}
+          minPolarAngle={Math.PI / 4}
+          enableZoom={false}
+        />
+
+        <Environment frames={Infinity} resolution={256} background blur={1}>
+          <mesh>
+            <sphereGeometry args={[-5, -5, 0]} />
+            <meshBasicMaterial color='black' />
+          </mesh>
+        </Environment>
+      </Canvas>
+    </>
   )
 }
 

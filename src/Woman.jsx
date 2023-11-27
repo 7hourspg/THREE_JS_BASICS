@@ -17,6 +17,10 @@ const Woman = (props) => {
 
    useEffect(() => {
       actions[names[0]].play();
+
+      return () => {
+         actions[names[0]]?.stop();
+      };
    }, [actions]);
 
    return (
